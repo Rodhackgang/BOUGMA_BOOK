@@ -13,9 +13,16 @@ app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+console.log(`Connecting to MongoDB at ${process.env.MONGODB_URI}`);
+
+mongoose.connect(process.env.MONGODB_URI, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 50000  // Augmenter le délai d'attente à 50 secondes
+})
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
+
 
 // Routes
 const bookRoutes = require('./routes/bookRoutes');
