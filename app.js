@@ -22,8 +22,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.log(err));
-
-
+//Bienvenu
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur notre API');
+});
 // Routes
 const bookRoutes = require('./routes/bookRoutes');
 app.use('/ajoutelements', bookRoutes);
